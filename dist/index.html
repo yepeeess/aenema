@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070708">
+  <meta name="description" content="Aenima Productions — estudio digital de diseño, desarrollo y tecnología.">
+  <title>Aenima Productions — Estudio digital</title>
+  <link rel="preload" href="aenima-web-background.png" as="image">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2308070b'/%3E%3Cpath d='M15 47 32 15l17 32M22 35h20' fill='none' stroke='%239d6cff' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
+    :root { color-scheme: dark; --violet:#9d6cff; --ink:#070708; --line:rgba(255,255,255,.16); --soft:rgba(255,255,255,.72); }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; min-width:320px; background:#070708; color:#fff; font-family:Manrope,Arial,sans-serif; }
+    .background { position:fixed; inset:0; z-index:-2; background-image:linear-gradient(90deg,rgba(5,5,6,.78) 0%,rgba(5,5,6,.54) 40%,rgba(5,5,6,.18) 100%),url('aenima-web-background.png'); background-size:cover; background-position:center; }
+    .noise { position:fixed; inset:0; z-index:-1; opacity:.23; pointer-events:none; background-image:radial-gradient(rgba(255,255,255,.23) .5px,transparent .6px); background-size:5px 5px; mix-blend-mode:soft-light; }
+    a { color:inherit; text-decoration:none; }
+    .shell { max-width:1280px; margin:auto; padding:0 48px; }
+    header { height:96px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--line); }
+    .brand { display:flex; align-items:center; gap:13px; font-size:.76rem; letter-spacing:.18em; font-weight:800; }
+    .brand img { width:34px; height:34px; object-fit:contain; }
+    nav { display:flex; gap:30px; align-items:center; font-family:'DM Mono',monospace; font-size:.68rem; letter-spacing:.09em; color:var(--soft); }
+    nav a:hover,nav a:focus { color:#fff; }
+    .menu { display:none; border:0; background:transparent; color:white; font:inherit; }
+    .hero { min-height:calc(100svh - 96px); display:flex; align-items:center; padding:70px 0 100px; }
+    .hero-copy { max-width:770px; }
+    .eyebrow { display:flex; align-items:center; gap:11px; color:#d4c4ff; font-family:'DM Mono',monospace; font-size:.7rem; letter-spacing:.13em; text-transform:uppercase; }
+    .eyebrow i { display:block; width:35px; height:1px; background:var(--violet); }
+    h1 { font-size:clamp(3.5rem,8vw,7.9rem); line-height:.91; letter-spacing:-.07em; margin:22px 0 30px; font-weight:800; max-width:830px; }
+    h1 em { font-style:normal; color:#b28bff; }
+    .lede { font-size:1.08rem; max-width:510px; line-height:1.7; color:var(--soft); margin:0; }
+    .hero-actions { display:flex; gap:14px; margin-top:38px; }
+    .button { display:inline-flex; align-items:center; justify-content:center; min-height:49px; padding:0 21px; border-radius:99px; border:1px solid var(--line); font-size:.76rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase; transition:.25s ease; }
+    .button.primary { background:#fff; color:#0a0910; border-color:#fff; }
+    .button:hover { transform:translateY(-2px); border-color:#c3a8ff; }
+    .scroll-note { position:absolute; bottom:30px; display:flex; gap:12px; align-items:center; color:rgba(255,255,255,.55); font-family:'DM Mono',monospace; font-size:.64rem; letter-spacing:.1em; text-transform:uppercase; }
+    .scroll-note span { width:36px; height:1px; background:rgba(255,255,255,.5); }
+    section { padding:115px 0; border-top:1px solid var(--line); }
+    .section-head { display:grid; grid-template-columns:1fr 2fr; gap:32px; align-items:start; margin-bottom:48px; }
+    .section-head h2 { font-size:clamp(2rem,4vw,4rem); line-height:1; letter-spacing:-.06em; margin:0; }
+    .section-head p { margin:0; color:var(--soft); max-width:510px; line-height:1.7; }
+    .index { font-family:'DM Mono',monospace; color:#c3a8ff; font-size:.7rem; letter-spacing:.1em; }
+    .games-intro { display:grid; grid-template-columns:1fr 2fr; gap:32px; align-items:start; margin-bottom:42px; }
+    .games-intro h2 { font-size:clamp(2rem,4vw,4rem); line-height:1; letter-spacing:-.06em; margin:0; }
+    .games-intro p { margin:0; max-width:520px; color:var(--soft); line-height:1.7; }
+    .spirit-games { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+    .game-panel { position:relative; min-height:390px; padding:26px; border:1px solid var(--line); background:linear-gradient(145deg,rgba(30,22,51,.86),rgba(8,8,13,.92)); overflow:hidden; }
+    .game-panel:before { content:''; position:absolute; inset:auto -15% -48% 20%; height:250px; background:radial-gradient(ellipse,rgba(157,108,255,.24),transparent 67%); pointer-events:none; }
+    .game-panel > * { position:relative; z-index:1; }
+    .game-panel header { height:auto; border:0; display:flex; justify-content:space-between; align-items:start; gap:15px; }
+    .game-kicker { color:#d5c1ff; font-family:'DM Mono',monospace; font-size:.65rem; letter-spacing:.1em; }
+    .game-panel h3 { margin:7px 0 10px; font-size:1.75rem; letter-spacing:-.055em; }
+    .game-panel p { margin:0 0 20px; color:var(--soft); line-height:1.55; font-size:.88rem; max-width:390px; }
+    .spirit { width:64px; height:64px; display:block; border-radius:18%; background-image:url('spirit-entities-serious.png'); background-size:300% 200%; background-repeat:no-repeat; filter:drop-shadow(0 0 12px rgba(178,139,255,.55)); animation:spirit-float 3.2s ease-in-out infinite; }
+    .spirit--void{background-position:0 0}.spirit--aqua{background-position:50% 0;filter:drop-shadow(0 0 12px rgba(79,208,255,.6))}.spirit--ember{background-position:100% 0;filter:drop-shadow(0 0 12px rgba(255,167,66,.6))}.spirit--storm{background-position:0 100%;filter:drop-shadow(0 0 12px rgba(255,82,100,.58))}.spirit--lunar{background-position:50% 100%;filter:drop-shadow(0 0 12px rgba(224,235,255,.58))}.spirit--verdant{background-position:100% 100%;filter:drop-shadow(0 0 12px rgba(111,220,104,.58))}
+    @keyframes spirit-float { 50% { transform:translateY(-6px) scale(1.035); } }
+    .spirit-lineup { display:flex; align-items:end; gap:4px; min-height:70px; margin:10px 0 17px; }
+    .spirit-lineup .spirit:nth-child(2){transform:translateY(-11px) scale(.8)}.spirit-lineup .spirit:nth-child(3){transform:translateY(2px) scale(.72)}
+    .spirit-board { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; max-width:390px; }
+    .spirit-token { min-height:58px; border:1px solid rgba(255,255,255,.16); border-radius:11px; background:rgba(255,255,255,.045); cursor:pointer; display:grid; place-items:center; transition:.18s ease; }
+    .spirit-token:hover,.spirit-token:focus,.spirit-token.is-selected { border-color:#c6aaff; transform:translateY(-2px); outline:none; box-shadow:0 0 0 3px rgba(178,139,255,.16); }.spirit-token.is-selected .spirit{animation:spirit-selected .55s ease-in-out infinite alternate}.spirit-token.is-matched{opacity:.08; transform:scale(.6); pointer-events:none}.spirit-token .spirit{width:50px;height:50px}.spirit-token.is-matched .spirit{animation:none}
+    @keyframes spirit-selected { to { transform:scale(1.13); filter:brightness(1.45) drop-shadow(0 0 18px #d4bcff); } }
+    .memory-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; max-width:390px; }
+    .memory-spirit { height:68px; border:1px solid rgba(255,255,255,.16); border-radius:10px; background:radial-gradient(circle at 50% 35%,rgba(178,139,255,.16),rgba(255,255,255,.04)); cursor:pointer; display:grid; place-items:center; color:#cab0ff; font-size:21px; transition:.32s cubic-bezier(.2,.8,.2,1); }
+    .memory-spirit.is-open,.memory-spirit.is-done { background:rgba(176,135,255,.22); border-color:#d6beff; transform:rotateY(180deg); }.memory-spirit.is-done { opacity:.46; pointer-events:none; }.memory-spirit .spirit{width:57px;height:57px;transform:rotateY(180deg)}
+    .game-status { margin-top:14px; min-height:22px; color:#dfd2ff; font-family:'DM Mono',monospace; font-size:.67rem; letter-spacing:.04em; }
+    .game-reset { margin-top:15px; border:0; padding:0; background:transparent; color:#fff; font:700 .7rem 'DM Mono',monospace; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; }.game-reset:hover { color:#c9adff; }
+    .cat-game { display:grid; grid-template-columns:minmax(0,1.55fr) minmax(260px,.75fr); gap:18px; padding:20px; border:1px solid var(--line); background:linear-gradient(145deg,rgba(10,17,31,.92),rgba(20,8,38,.86)); }
+    .cat-stage { position:relative; overflow:hidden; border-radius:16px; border:1px solid rgba(255,255,255,.16); background:#111528; aspect-ratio:16/10; }.cat-stage canvas{width:100%;height:100%;display:block;touch-action:none}.cat-hud{display:flex;gap:12px;position:absolute;top:12px;left:12px;font:700 .66rem 'DM Mono',monospace;letter-spacing:.05em}.cat-hud span{padding:7px 9px;border-radius:8px;background:rgba(5,6,12,.68);border:1px solid rgba(255,255,255,.12)}
+    .cat-action,.cat-upgrades button{min-height:38px;border:1px solid rgba(255,255,255,.22);border-radius:9px;background:rgba(255,255,255,.07);color:#fff;font:700 .7rem 'DM Mono',monospace;cursor:pointer}
+    .studio { display:grid; grid-template-columns:1.25fr 1fr; gap:64px; }
+    .statement { font-size:clamp(1.7rem,3vw,3.1rem); letter-spacing:-.055em; line-height:1.18; margin:0; }
+    .facts { border-top:1px solid var(--line); }
+    .fact { display:flex; justify-content:space-between; gap:20px; padding:17px 0; border-bottom:1px solid var(--line); font-size:.89rem; }
+    .fact span:first-child { color:var(--soft); }.fact span:last-child { text-align:right; }
+    .contact { padding:105px 0; text-align:center; }
+    .contact h2 { font-size:clamp(3rem,7vw,7rem); letter-spacing:-.075em; line-height:.9; max-width:970px; margin:20px auto 35px; }
+    .contact h2 em { color:#a77bff; font-style:normal; }
+    .contact-form { width:min(100%,650px); margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:12px; text-align:left; }
+    .contact-form label { display:grid; gap:7px; color:var(--soft); font-family:'DM Mono',monospace; font-size:.68rem; letter-spacing:.06em; }
+    .contact-form label.full { grid-column:1 / -1; }
+    .contact-form input,.contact-form textarea { width:100%; border:1px solid var(--line); border-radius:10px; padding:14px; color:#fff; background:rgba(4,4,7,.55); font:inherit; font-size:.95rem; outline:none; }
+    .contact-form textarea { min-height:120px; resize:vertical; }
+    .contact-form input:focus,.contact-form textarea:focus { border-color:#b18aff; box-shadow:0 0 0 3px rgba(157,108,255,.15); }
+    .contact-form .button { justify-self:center; grid-column:1 / -1; margin-top:8px; cursor:pointer; }
+    .form-status { min-height:1.5em; margin:14px 0 0; color:#d9cbff; font-size:.88rem; }
+    footer.site-footer { padding:27px 0; border-top:1px solid var(--line); display:flex; justify-content:space-between; gap:20px; color:rgba(255,255,255,.56); font-family:'DM Mono',monospace; font-size:.65rem; letter-spacing:.06em; }
+    @media (max-width:720px) { .shell{padding:0 21px}.hero{padding:54px 0 90px}.background{background-position:62% center}.background{background-image:linear-gradient(90deg,rgba(5,5,6,.8),rgba(5,5,6,.30)),url('aenima-web-background.png')}nav{display:none}.menu{display:block}.section-head,.games-intro,.studio{grid-template-columns:1fr;gap:22px}.spirit-games,.cat-game{grid-template-columns:1fr}.game-panel{min-height:auto;padding:22px}section{padding:76px 0}.contact{padding:80px 0}.hero-actions{flex-wrap:wrap}.scroll-note{bottom:22px}.contact-form{grid-template-columns:1fr}.contact-form label.full{grid-column:auto}.contact-form .button{grid-column:auto} footer.site-footer{flex-direction:column;}.brand{font-size:.67rem} }
+    .cat-upgrades[hidden]{display:none!important}.cat-game:fullscreen{width:100%;height:100%;max-width:none;align-items:center;padding:clamp(16px,3vw,42px)}.cat-game:fullscreen .cat-stage{max-height:calc(100vh - 84px)}@media(max-width:720px){.cat-game:fullscreen{height:auto;overflow:auto}}
+    /* Panel lateral del Guardián: guía clara + mejoras, sin elementos de la interfaz anterior. */
+    .cat-game { align-items:start; }
+    .cat-hud { flex-wrap:wrap; }
+    .cat-side { min-width:0; display:grid; align-content:start; gap:12px; }
+    .cat-control-guide,.cat-upgrades { position:static; inset:auto; z-index:auto; width:100%; margin:0; display:grid; gap:12px; padding:17px; border:1px solid rgba(177,138,255,.48); border-radius:14px; background:linear-gradient(145deg,rgba(19,14,37,.94),rgba(9,10,22,.97)); box-shadow:0 16px 36px rgba(0,0,0,.24); backdrop-filter:none; }
+    .cat-control-guide h3 { margin:1px 0 0; font-size:1.22rem; letter-spacing:-.045em; }
+    .cat-control-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+    .cat-control-item { min-height:58px; display:grid; align-content:center; gap:6px; padding:9px 10px; border:1px solid rgba(255,255,255,.10); border-radius:10px; background:rgba(255,255,255,.035); }
+    .cat-control-item--wide { grid-column:1 / -1; grid-template-columns:auto 1fr; align-items:center; column-gap:10px; }
+    .cat-control-item kbd { width:max-content; max-width:100%; padding:4px 6px; border:1px solid rgba(194,165,255,.52); border-radius:5px; background:rgba(145,93,255,.16); color:#f2ecff; font:700 .61rem 'DM Mono',monospace; letter-spacing:.04em; white-space:nowrap; }
+    .cat-control-item span { color:rgba(255,255,255,.68); font-size:.69rem; line-height:1.25; }
+    .cat-side-actions { display:grid; gap:8px; }
+    .cat-side-actions .cat-action { width:100%; min-height:43px; margin:0; border-color:rgba(197,170,255,.65); background:linear-gradient(135deg,#a770ff,#6332b7); box-shadow:none; }
+    .cat-message { min-height:0; margin:0; color:#ded1ff; font:500 .72rem/1.45 'DM Mono',monospace; }
+    .cat-upgrades { gap:10px; border-color:rgba(192,154,255,.7); }
+    .cat-upgrades:before { content:'MEJORAS · CARGA DE ALMAS'; color:#fff; text-align:left; font:800 1rem Manrope,sans-serif; letter-spacing:-.03em; }
+    .cat-upgrades button { min-height:48px; padding:11px 12px; border:1px solid rgba(195,163,255,.32); border-radius:10px; background:rgba(132,87,230,.12); color:#fff; font:700 .7rem 'DM Mono',monospace; text-align:left; }
+    .cat-upgrades button:not(:disabled):hover { border-color:#e2d2ff; background:rgba(157,108,255,.28); }
+    .cat-upgrades button:disabled { opacity:.5; cursor:not-allowed; }
+    .cat-upgrade-progress { margin:0; color:#d6c5ff; font:600 .7rem/1.45 'DM Mono',monospace; }
+    .cat-game:fullscreen { grid-template-columns:minmax(0,1.55fr) minmax(286px,.75fr); align-items:center; }
+    .cat-game:fullscreen .cat-side { max-height:calc(100vh - 72px); overflow:auto; padding-right:3px; }
+    @media (max-width:900px) { .cat-game { grid-template-columns:1fr; }.cat-side { grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start; }.cat-game:fullscreen { grid-template-columns:1fr; align-content:start; }.cat-game:fullscreen .cat-side { max-height:none; overflow:visible; } }
+    @media (max-width:620px) { .cat-side { grid-template-columns:1fr; }.cat-control-list { grid-template-columns:1fr; }.cat-control-item--wide { grid-column:auto; }.cat-game:fullscreen { height:auto; padding:16px; } }
+    /* Los controles táctiles solo aparecen cuando el dispositivo principal es táctil. */
+    .mobile-game-controls { display:none; }
+    @media (hover:none) and (pointer:coarse) {
+      .mobile-game-controls:not([hidden]) { position:absolute; z-index:4; right:max(12px,env(safe-area-inset-right)); bottom:max(12px,env(safe-area-inset-bottom)); left:max(12px,env(safe-area-inset-left)); display:flex; align-items:end; justify-content:space-between; pointer-events:none; }
+      .mobile-game-controls button { min-width:52px; min-height:52px; padding:0; border:1px solid rgba(231,218,255,.62); border-radius:14px; color:#fff; background:linear-gradient(145deg,rgba(31,22,55,.92),rgba(10,10,24,.92)); box-shadow:0 8px 18px rgba(0,0,0,.34),inset 0 1px rgba(255,255,255,.12); font:800 1.18rem/1 Manrope,sans-serif; touch-action:none; user-select:none; -webkit-tap-highlight-color:transparent; pointer-events:auto; }
+      .mobile-game-controls button:active,.mobile-game-controls button.is-held { transform:translateY(2px) scale(.96); border-color:#fff; background:linear-gradient(145deg,#ac75ff,#4d287d); box-shadow:0 3px 9px rgba(0,0,0,.42),0 0 22px rgba(173,109,255,.46); }
+      .mobile-dpad { display:grid; grid-template-columns:repeat(3,52px); grid-template-rows:repeat(3,52px); gap:5px; filter:drop-shadow(0 9px 12px rgba(0,0,0,.25)); }
+      .mobile-dpad button { border-radius:12px; }
+      .mobile-dpad [data-mobile-move="w"] { grid-column:2; grid-row:1; }
+      .mobile-dpad [data-mobile-move="a"] { grid-column:1; grid-row:2; }
+      .mobile-dpad [data-mobile-move="s"] { grid-column:2; grid-row:2; }
+      .mobile-dpad [data-mobile-move="d"] { grid-column:3; grid-row:2; }
+      .mobile-actions { display:grid; grid-template-columns:repeat(2,58px); gap:7px; align-items:end; }
+      .mobile-actions .mobile-action--pause { grid-column:1 / -1; justify-self:center; min-width:48px; min-height:35px; border-radius:11px; font-size:.66rem; letter-spacing:.06em; }
+      .mobile-actions .mobile-action--attack { min-width:58px; min-height:58px; border-color:rgba(255,224,170,.82); background:linear-gradient(145deg,rgba(119,62,35,.96),rgba(43,20,35,.96)); font-size:1.5rem; }
+      .mobile-actions .mobile-action--block { min-width:58px; min-height:58px; border-color:rgba(164,214,255,.78); background:linear-gradient(145deg,rgba(35,77,125,.96),rgba(18,25,59,.96)); font-size:1.35rem; }
+      .mobile-action-label { display:block; margin-top:4px; font:800 .47rem/1 'DM Mono',monospace; letter-spacing:.03em; }
+    }
+    @media (hover:none) and (pointer:coarse) and (max-width:390px) {
+      .mobile-game-controls:not([hidden]) { right:8px; bottom:8px; left:8px; }
+      .mobile-dpad { grid-template-columns:repeat(3,46px); grid-template-rows:repeat(3,46px); gap:4px; }
+      .mobile-game-controls button { min-width:46px; min-height:46px; }
+      .mobile-actions { grid-template-columns:repeat(2,52px); gap:5px; }
+      .mobile-actions .mobile-action--attack,.mobile-actions .mobile-action--block { min-width:52px; min-height:52px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="background" aria-hidden="true"></div><div class="noise" aria-hidden="true"></div>
+  <div class="shell">
+    <header>
+      <a class="brand" href="#inicio" aria-label="Aenima Productions, inicio"><img src="aenima-monograma-ae.png" alt="">AENIMA PRODUCTIONS</a>
+      <nav aria-label="Navegación principal"><a href="#estudio">Estudio</a><a href="#juegos">Juegos</a><a href="#contacto">Contacto</a></nav>
+      <button class="menu" type="button" aria-label="Abrir navegación">MENÚ</button>
+    </header>
+    <main>
+      <section class="hero" id="inicio">
+        <div class="hero-copy"><div class="eyebrow"><i></i> AENIMA PRODUCTIONS / ESTUDIO DIGITAL</div><h1>Diseñamos experiencias que <em>conectan.</em></h1><p class="lede">Desarrollamos páginas web, aplicaciones y videojuegos con una visión que combina estrategia, tecnología y diseño para convertir ideas en productos digitales memorables.</p><div class="hero-actions"><a class="button primary" href="#estudio">Conocer Aenima</a><a class="button" href="#contacto">Hablemos de tu proyecto</a></div></div><div class="scroll-note"><span></span> Conoce nuestro estudio</div>
+      </section>
+      <section id="estudio"><div class="section-head"><div class="index">01 / ESTUDIO</div><div><h2>Donde la idea encuentra forma.</h2><p>Convertimos los sueños en su mejor proyecto, combinando investigación, dedicación y una mirada clara hacia lo que puede ser posible.</p></div></div><div class="studio"><p class="statement">Somos un proyecto que desarrolla aplicaciones y videojuegos a partir del estudio y la dedicación en programación, tecnología y diseño. Creamos el diseño y la página web de tus sueños para sacar a relucir lo mejor de ti.</p><div class="facts"><div class="fact"><span>Qué hacemos</span><span>Diseño y creación de<br>páginas, apps y videojuegos</span></div><div class="fact"><span>Proceso</span><span>Creación de la página,<br>diseño y distribución</span></div><div class="fact"><span>Infraestructura</span><span>Datos y servicios<br>en la nube</span></div><div class="fact"><span>Modalidad</span><span>Trabajo digital<br>con sede en Colombia</span></div></div></div></section>
+      <section id="juegos"><div class="games-intro"><div class="index">02 / LABORATORIO LÚDICO</div><div><h2>Entidades en juego.</h2><p>Programar videojuegos es convertir una idea en pequeñas reglas que responden a cada decisión: qué sucede cuando eliges un personaje, cuándo aparece un premio o cómo aumenta un reto. La lógica de programación conecta esas reglas para que la experiencia se sienta fluida, justa y entretenida.</p><p>Esta muestra reúne diseño visual y mecánicas interactivas que se combinan en tiempo real.</p></div></div><div class="spirit-games"><article class="game-panel"><header><div><span class="game-kicker">MINIJUEGO / COMBINACIONES</span><h3>Resonancia astral</h3></div><div class="spirit spirit--void" aria-hidden="true"></div></header><p>Encuentra grupos de tres o más entidades iguales. Las cadenas grandes crean una resonancia más poderosa y suman más energía.</p><div class="spirit-lineup" aria-hidden="true"><div class="spirit spirit--aqua"></div><div class="spirit spirit--ember"></div><div class="spirit spirit--verdant"></div></div><div class="spirit-board" id="spirit-board" aria-label="Tablero de entidades"></div><div class="game-status" id="spirit-status" role="status">Selecciona entidades del mismo tipo.</div><button class="game-reset" type="button" id="spirit-reset">Reiniciar resonancia</button></article><article class="game-panel"><header><div><span class="game-kicker">MINIJUEGO / MEMORIA</span><h3>Ecos del umbral</h3></div><div class="spirit spirit--lunar" aria-hidden="true"></div></header><p>Abre los portales y reúne ocho parejas de entidades. Cada acierto mantiene vivo el ritmo de la exploración.</p><div class="memory-grid" id="memory-grid" aria-label="Juego de memoria de entidades"></div><div class="game-status" id="memory-status" role="status">0 de 8 parejas encontradas.</div><button class="game-reset" type="button" id="memory-reset">Mezclar portales</button></article></div></section>
+      <section id="gato-3d">
+        <div class="games-intro">
+          <div class="index">03 / ARENA 3D</div>
+          <div><h2>El guardián de medianoche.</h2><p>Controla a un gato negro en una planicie de tierra y césped con perspectiva 3D caricaturesca. En cada nivel, la corrupción informática alimenta a los enemigos: aumenta su vida y daño en un 50% hasta alcanzar sus límites. Elimina a los rivales, vence al minijefe y administra tu Carga de almas para elegir mejoras.</p></div>
+        </div>
+        <div class="cat-game">
+          <div class="cat-stage">
+            <canvas id="cat-game-canvas" width="960" height="600" aria-label="Arena 3D del gato negro"></canvas>
+            <div class="cat-hud">
+              <span id="cat-level">NIVEL 1</span>
+              <span id="cat-health">SALUD 100</span>
+              <span id="cat-damage-hud">DAÑO 15</span>
+              <span id="cat-enemies">ENEMIGOS 0</span>
+            </div>
+            <div class="mobile-game-controls" hidden aria-label="Controles táctiles del Guardián de Medianoche">
+              <div class="mobile-dpad" aria-label="Cruceta de movimiento">
+                <button type="button" data-mobile-move="w" aria-label="Mover arriba">▲</button>
+                <button type="button" data-mobile-move="a" aria-label="Mover a la izquierda">◀</button>
+                <button type="button" data-mobile-move="s" aria-label="Mover abajo">▼</button>
+                <button type="button" data-mobile-move="d" aria-label="Mover a la derecha">▶</button>
+              </div>
+              <div class="mobile-actions" aria-label="Acciones de combate">
+                <button type="button" class="mobile-action mobile-action--pause" data-mobile-action="pause" aria-label="Pausar o continuar">Ⅱ<span class="mobile-action-label">PAUSA</span></button>
+                <button type="button" class="mobile-action mobile-action--block" data-mobile-action="block" aria-label="Mantener escudo">⬡<span class="mobile-action-label">ESCUDO</span></button>
+                <button type="button" class="mobile-action mobile-action--attack" data-mobile-action="attack" aria-label="Atacar con la espada">⚔<span class="mobile-action-label">ATACAR</span></button>
+              </div>
+            </div>
+          </div>
+          <aside class="cat-side" aria-label="Guía y mejoras del juego">
+            <section class="cat-control-guide" aria-labelledby="cat-controls-title">
+              <span class="game-kicker">GUÍA RÁPIDA</span>
+              <h3 id="cat-controls-title">Controles</h3>
+              <div class="cat-control-list" aria-label="Ejemplos de controles">
+                <div class="cat-control-item"><kbd>W A S D</kbd><span>Muévete por la arena</span></div>
+                <div class="cat-control-item"><kbd>CLIC IZQ. / ESPACIO</kbd><span>Ataca con la espada</span></div>
+                <div class="cat-control-item"><kbd>CLIC DER. / SHIFT</kbd><span>Bloquea y busca el parry</span></div>
+                <div class="cat-control-item"><kbd>R</kbd><span>Pausa o reanuda</span></div>
+              </div>
+              <div class="cat-side-actions">
+                <button class="cat-action" id="cat-attack" type="button">Atacar · Clic izquierdo</button>
+              </div>
+              <p class="cat-message" id="cat-message" role="status">Inicia la aventura para enfrentar la corrupción.</p>
+            </section>
+            <section class="cat-upgrades" id="cat-upgrades" hidden aria-label="Mejoras con carga de almas">
+              <p class="cat-upgrade-progress" id="cat-upgrade-progress">Carga de almas: 0 · revisa el coste de cada mejora.</p>
+              <button data-cat-upgrade="damage" type="button">⚔ Mejorar daño · 50 almas</button>
+              <button data-cat-upgrade="health" type="button">♥ Mejorar salud · 50 almas</button>
+              <button data-cat-upgrade="parry" type="button">✦ Mejorar bloqueo perfecto · 50 almas</button>
+            </section>
+          </aside>
+        </div>
+      </section>
+      <section class="contact" id="contacto"><div class="eyebrow" style="justify-content:center"><i></i> Hablemos de tu próximo proyecto <i></i></div><h2>Tu idea merece una <em>gran experiencia.</em></h2><p class="lede" style="margin:0 auto 32px">En Aenima nos encargamos de la creación de tu página, su diseño, su distribución y la gestión de datos en la nube. Puedes escribirnos por WhatsApp, abrir un correo en Gmail o enviarnos los detalles directamente desde aquí.</p><div class="hero-actions" style="justify-content:center;margin-top:0"><a class="button" href="https://wa.link/15m5gx" target="_blank" rel="noreferrer">Escríbenos por WhatsApp</a><a class="button" href="https://mail.google.com/mail/?view=cm&fs=1&to=Nicoyepesmateus31%40gmail.com" target="_blank" rel="noreferrer">Enviar por Gmail</a></div><form class="contact-form" id="contact-form" novalidate><label>Nombre<input name="name" type="text" autocomplete="name" maxlength="100" required></label><label>Correo electrónico<input name="email" type="email" autocomplete="email" maxlength="254" required></label><label class="full">Cuéntanos sobre tu proyecto<textarea name="message" maxlength="3000" required></textarea></label><button class="button primary" type="submit">Enviar solicitud</button></form><p class="form-status" id="form-status" role="status" aria-live="polite"></p></section>
+    </main>
+    <footer class="site-footer"><span>© 2026 AENIMA PRODUCTIONS</span><span>ARCHIVO / PORTAFOLIO</span></footer>
+  </div>
+  <script>
+    document.querySelector('.menu').addEventListener('click',()=>document.querySelector('nav').classList.toggle('open'));
+    document.querySelector('#contact-form').addEventListener('submit',async(event)=>{event.preventDefault();const form=event.currentTarget,status=document.querySelector('#form-status'),button=form.querySelector('button');if(!form.reportValidity())return;button.disabled=true;status.textContent='Enviando tu solicitud…';try{const response=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.fromEntries(new FormData(form)))});if(!response.ok)throw new Error();form.reset();status.textContent='¡Gracias! Recibimos tu solicitud y nos pondremos en contacto pronto.'}catch{status.textContent='No pudimos enviar tu solicitud. Escríbenos por WhatsApp o Gmail.'}finally{button.disabled=false}});
+  </script>
+  <script src="games.js"></script>
+  <script src="cat-game.js"></script>
+</body>
+</html>
