@@ -40,7 +40,7 @@
     skin: '#151522', time: 0, last: 0, camera: { x: 0, y: 0 },
     cat: { x: 0, y: 0, fx: 0, fy: 1, hit: 0, moving: 0 },
     enemies: [], boss: null, bossFought: false, attack: null,
-    shield: false, mouseShield: false, touchShield: false, shieldAge: 99, ready: false, maxStatsComboActive: false
+    shield: false, mouseShield: false, touchShield: false, shieldAge: 99, ready: false, maxStatsComboActive: false, pausedForOrientation: false
   };
 
   const say = text => { const message = $('#cat-message'); if (message) message.textContent = text; };
@@ -782,6 +782,8 @@
 
   const attack = $('#cat-attack');
   const mobileControls = $('.mobile-game-controls');
+  const gameShell = canvas.closest('.cat-game');
+  const isTouchDevice = () => window.matchMedia?.('(hover: none) and (pointer: coarse)').matches;
   const start = document.createElement('button');
   start.id = 'cat-start';
   start.type = 'button';
@@ -789,6 +791,31 @@
   start.textContent = 'Iniciar aventura';
   attack?.before(start);
   if (attack) attack.hidden = true;
+
+  function updateMobileOrientation() {
+    if (!isTouchDevice() || !g.started || !gameShell) return;
+    const portrait = window.innerHeight > window.innerWidth;
+    gameShell.classList.toggle('needs-landscape', portrait);
+    if (portrait && !g.paused) {
+      g.paused = true;
+      g.pausedForOrientation = true;
+      releaseTouchInputs();
+      say('Gira el teléfono a horizontal para continuar.');
+    } else if (!portrait && g.pausedForOrientation) {
+      g.paused = false;
+      g.pausedForOrientation = false;
+      say('Orientación lista. La aventura continúa.');
+    }
+  }
+
+  function enterMobileFullscreen() {
+    if (!isTouchDevice() || !gameShell) return;
+    const lockLandscape = () => screen.orientation?.lock?.('landscape').catch(() => {});
+    if (document.fullscreenElement !== gameShell) {
+      gameShell.requestFullscreen?.().then(lockLandscape).catch(() => updateMobileOrientation());
+    } else lockLandscape();
+    updateMobileOrientation();
+  }
 
   function begin() {
     if (g.started) return;
@@ -798,7 +825,8 @@
     const upgradePanel = $('#cat-upgrades');
     if (upgradePanel) upgradePanel.hidden = false;
     if (mobileControls) mobileControls.hidden = false;
-    if (innerWidth > 800) canvas.closest('.cat-game')?.requestFullscreen?.().catch(() => {});
+    if (isTouchDevice()) enterMobileFullscreen();
+    else if (innerWidth > 800) gameShell?.requestFullscreen?.().catch(() => {});
     if (attack) { attack.hidden = false; attack.textContent = 'Atacar · Clic izquierdo'; }
     start.hidden = true;
   }
@@ -875,6 +903,12 @@
     togglePause();
   });
   window.addEventListener('blur', releaseTouchInputs);
+  window.addEventListener('resize', updateMobileOrientation);
+  window.addEventListener('orientationchange', updateMobileOrientation);
+  document.addEventListener('fullscreenchange', () => {
+    if (document.fullscreenElement !== gameShell) screen.orientation?.unlock?.();
+    updateMobileOrientation();
+  });
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) releaseTouchInputs();
   });
